@@ -13,7 +13,6 @@ export class Snake{
         const block = new Block(x, y, this.blockSize);
         this.blocks.push(block);
     }
-
     updateSnake(ctx){
         // on boucle sur tous les blocks du snake
         for (const block of this.blocks){

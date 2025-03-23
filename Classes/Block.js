@@ -4,7 +4,6 @@ export class Block {
         this.y = y;
         this.size = size;
     }
-
     // function draw permet d'afficher queleque chose à l'écran
     draw(ctx){
         // dessine un rectangle sur l'écrn

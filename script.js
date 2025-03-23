@@ -1,5 +1,4 @@
 import {Snake} from './Classes/Snake.js';
-//import {Block} from 'Classes/Block.js';
 
 // taille du jeu
 const GameSize = 600;
