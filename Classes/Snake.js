@@ -36,7 +36,5 @@ export class Snake{
         for (const block of this.blocks){
             block.draw(ctx);
         }
-        // const head = this.blocks[0];
-        // head.x += 1;
     }
 }
