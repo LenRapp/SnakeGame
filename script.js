@@ -1,7 +1,7 @@
 import {Snake} from './Classes/Snake.js';
 
 // taille du jeu
-const GameSize = 600;
+export const GameSize = 600;
 // taille des carrées
 const SquareSize = 20;
 // on récupére canvas

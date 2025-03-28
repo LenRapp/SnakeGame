@@ -30,6 +30,7 @@ export class Snake{
                 head.y += 1;
                 break;
         }
+        head.teleportIfOutMap();
     }
     updateSnake(ctx){
         // on boucle sur tous les blocks du snake
