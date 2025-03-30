@@ -1,15 +1,18 @@
 import {Snake} from './Classes/Snake.js';
+import { Food } from './Classes/Food.js';
 
 // taille du jeu
 export const GameSize = 600;
 // taille des carrées
-const SquareSize = 20;
+export const SquareSize = 20;
 // on récupére canvas
 const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+export const ctx = canvas.getContext("2d");
 
 //Inialise le Snake
 const snake = new Snake(SquareSize);
+
+const food = new Food();
 
 
 function detetecKeyPressed(){
@@ -38,6 +41,7 @@ function clearScreen(){
 // fonction pour raffraichir l'image du jeu
 function update(){
     clearScreen();
+    food.draw();
     snake.moveHead()
     snake.updateSnake(ctx);
     setTimeout(update, 150);

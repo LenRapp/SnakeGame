@@ -1,4 +1,5 @@
 import {Block} from './Block.js';
+import {ctx} from '../script.js';
 export class Snake{
     constructor(size){
         this.x = 0;
@@ -32,7 +33,7 @@ export class Snake{
         }
         head.teleportIfOutMap();
     }
-    updateSnake(ctx){
+    updateSnake(){
         // on boucle sur tous les blocks du snake
         for (const block of this.blocks){
             block.draw(ctx);

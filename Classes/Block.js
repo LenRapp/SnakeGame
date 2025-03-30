@@ -1,4 +1,4 @@
-import { GameSize } from '../script.js';
+import { GameSize, ctx } from '../script.js';
 export class Block {
     constructor(x, y, size){
         this.x = x;
@@ -26,7 +26,7 @@ export class Block {
 
 
     // function draw permet d'afficher queleque chose à l'écran
-    draw(ctx){
+    draw(){
         // dessine un rectangle sur l'écrn
         ctx.fillStyle = "blue"
         ctx.fillRect(this.x * this.size, this.y * this.size, this.size, this.size);
