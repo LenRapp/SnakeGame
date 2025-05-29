@@ -1,42 +1,88 @@
 import {Block} from './Block.js';
-import {ctx} from '../script.js';
-export class Snake{
-    constructor(size){
-        this.x = 0;
-        this.y = 0;
-        this.blockSize = size;
-        this.blocks =[];
-        this.addBlock(this.x, this.y);
-        this.currentDirection = "down"
+import {GameSize} from '../script.js';
+
+export class Snake {
+    constructor(size) {
+        this.size = size;
+        this.blocks = [new Block(10, 10, size)];
+        this.direction = "right";
+        this.nextDirection = "right";
+        this.isDead = false;
     }
 
-    // aoute un block au snake
-    addBlock(x, y){
-        const block = new Block(x, y, this.blockSize);
-        this.blocks.push(block);
-    }
-    moveHead(){
+    move() {
+        if (this.isDead) return;
+
+        // Mise à jour de la direction
+        this.direction = this.nextDirection;
+
+        // Calcul de la nouvelle position de la tête
         const head = this.blocks[0];
-        switch (this.currentDirection){
-            case "left":
-                head.x -= 1;
-                break;
-            case "right":
-                head.x += 1;
-                break;
+        const newHead = new Block(head.x, head.y, this.size);
+
+        switch (this.direction) {
             case "up":
-                head.y -= 1;
+                newHead.y--;
                 break;
             case "down":
-                head.y += 1;
+                newHead.y++;
+                break;
+            case "left":
+                newHead.x--;
+                break;
+            case "right":
+                newHead.x++;
                 break;
         }
-        head.teleportIfOutMap();
-    }
-    updateSnake(){
-        // on boucle sur tous les blocks du snake
-        for (const block of this.blocks){
-            block.draw(ctx);
+
+        // Vérification des collisions avec les murs
+        newHead.teleportIfOutMap();
+
+        // Vérification des collisions avec le corps
+        if (this.checkCollision(newHead)) {
+            this.isDead = true;
+            return;
         }
+
+        // Ajout de la nouvelle tête
+        this.blocks.unshift(newHead);
+        this.blocks.pop();
+    }
+
+    grow() {
+        const tail = this.blocks[this.blocks.length - 1];
+        const newBlock = new Block(tail.x, tail.y, this.size);
+        this.blocks.push(newBlock);
+    }
+
+    checkCollision(block) {
+        return this.blocks.some(b => b.x === block.x && b.y === block.y);
+    }
+
+    draw() {
+        this.blocks.forEach((block, index) => {
+            block.draw(index === 0);
+        });
+    }
+
+    setDirection(newDirection) {
+        // Empêcher les virages à 180 degrés
+        const opposites = {
+            "up": "down",
+            "down": "up",
+            "left": "right",
+            "right": "left"
+        };
+
+        if (opposites[newDirection] !== this.direction) {
+            this.nextDirection = newDirection;
+        }
+    }
+
+    reset() {
+        this.blocks = [new Block(10, 10, this.size)];
+        this.direction = "right";
+        this.nextDirection = "right";
+        this.isDead = false;
     }
 }
