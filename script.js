@@ -104,7 +104,7 @@ function update() {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = '#2c3e50';
+    ctx.strokeStyle = '#2E7D32';
     ctx.lineWidth = 0.5;
 
     for (let i = 0; i <= GameSize; i += SquareSize) {
