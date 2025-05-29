@@ -90,7 +90,7 @@ function update() {
     if (head.x === food.x && head.y === food.y) {
         snake.grow();
         food.setRandomPosition();
-        score += 10;
+        score += 1;
         scoreDisplay.textContent = score;
     }
 
