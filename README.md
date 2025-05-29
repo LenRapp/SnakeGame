@@ -75,9 +75,6 @@ Un jeu de Snake moderne et élégant créé avec JavaScript.
 
 Ce projet est sous licence MIT.
 
-## 👨‍💻 Auteur
-
-Créé avec ❤️ par [Votre nom]
 
 ## 📸 Aperçu
 
