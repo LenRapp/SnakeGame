@@ -1,31 +1,31 @@
 # 🐍 Snake Game
 
-Un jeu de Snake moderne et élégant créé avec JavaScript.
+A modern and elegant Snake game made with JavaScript.
 
-## 🎮 Comment jouer
+## 🎮 How to Play
 
-1. Utilisez les touches fléchées ou ZQSD pour diriger le serpent
-2. Mangez les pommes pour grandir et marquer des points
-3. Évitez de vous cogner contre vous-même
-4. Appuyez sur Espace pour mettre le jeu en pause
+1. Use the arrow keys or ZQSD to control the snake
+2. Eat apples to grow and score points
+3. Avoid running into yourself
+4. Press Space to pause the game
 
-## 🎯 Objectif
+## 🎯 Objective
 
-- Manger le plus de pommes possible
-- Faire grandir le serpent
-- Obtenir le meilleur score
+- Eat as many apples as possible
+- Make the snake grow
+- Get the highest score
 
-## 🎨 Fonctionnalités
+## 🎨 Features
 
-- Interface moderne avec animations fluides
-- Serpent bleu avec effet de brillance
-- Pommes rouges stylisées
-- Grille de fond verte
-- Système de score
-- Écran de Game Over avec animation
-- Bouton de redémarrage
+- Modern interface with smooth animations
+- Blue snake with shine effect
+- Stylized red apples
+- Green grid background
+- Score system
+- Animated Game Over screen
+- Restart button
 
-## 🛠️ Technologies utilisées
+## 🛠️ Technologies Used
 
 - HTML5
 - CSS3
@@ -34,52 +34,50 @@ Un jeu de Snake moderne et élégant créé avec JavaScript.
 
 ## 🚀 Installation
 
-1. Clonez le repository
-2. Ouvrez `index.html` dans votre navigateur
-   - Ou utilisez l'extension Live Server de VS Code
-   - Ou lancez un serveur local
+1. Clone the repository
+2. Open `index.html` in your browser
+   - Or use the Live Server extension in VS Code
+   - Or launch a local server
 
-## 🎯 Contrôles
+## 🎯 Controls
 
-- ⬆️ ou Z : Monter
-- ⬇️ ou S : Descendre
-- ⬅️ ou Q : Gauche
-- ➡️ ou D : Droite
-- Espace : Pause
+- ⬆️ or Z: Up
+- ⬇️ or S: Down
+- ⬅️ or Q: Left
+- ➡️ or D: Right
+- Space: Pause
 
 ## 🎨 Style
 
-- Design moderne et épuré
-- Animations fluides
-- Interface responsive
-- Thème sombre élégant
+- Modern and clean design
+- Smooth animations
+- Responsive interface
+- Elegant dark theme
 
-## 🎯 Score
+## 🎯 Scoring
 
-- 1 point par pomme mangée
-- Score affiché en temps réel
-- Meilleur score sauvegardé
+- 1 point per apple eaten
+- Real-time score display
 
-## 🐛 Bugs connus
+## 🐛 Known Bugs
 
-- Aucun bug connu pour le moment
+- No known bugs at the moment
 
-## 🔜 Améliorations futures
+## 🔜 Future Improvements
 
-- Ajout de niveaux de difficulté
-- Système de high scores
-- Effets sonores
-- Mode multijoueur
+- Add difficulty levels
+- High score system
+- Sound effects
+- Multiplayer mode
 
-## 📝 Licence
+## 📝 License
 
-Ce projet est sous licence MIT.
+This project is licensed under the MIT License.
 
+## 📸 Preview
 
-## 📸 Aperçu
+### Game Start
+![Game Start](./img/Snake%20jeu.png) 
 
 ### Game Over
 ![Game Over](./img/Snake%20GameOver.png)
-
-### Début de partie
-![Début de partie](./img/Snake%20jeu.png) 
