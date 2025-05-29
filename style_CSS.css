@@ -7,6 +7,7 @@ body {
     justify-content: center;
     background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
     font-family: 'Arial', sans-serif;
+    position: relative;
 }
 
 #game {
@@ -14,9 +15,71 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border: 2px solid #3a3a3a;
+    animation: fadeIn 0.5s ease-out;
 }
 
-/* Animation de démarrage */
+#score {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+#gameOver {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+#gameOver h2 {
+    margin: 0;
+    font-size: 36px;
+    color: #ff4444;
+}
+
+#gameOver p {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+#restartButton {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#restartButton:hover {
+    background: #45a049;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -26,8 +89,4 @@ body {
         opacity: 1;
         transform: scale(1);
     }
-}
-
-#game {
-    animation: fadeIn 0.5s ease-out;
 }
