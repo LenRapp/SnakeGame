@@ -23,7 +23,7 @@ export class Block {
 
     draw(isHead = false) {
         // Style moderne avec coins arrondis
-        ctx.fillStyle = isHead ? "#45a049" : "#4CAF50";
+        ctx.fillStyle = isHead ? "#2196F3" : "#1976D2"; // Bleu clair pour la tête, bleu foncé pour le corps
         
         // Dessin du bloc avec coins arrondis
         const x = this.x * this.size;
