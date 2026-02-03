@@ -11,8 +11,10 @@ const canvas = document.getElementById('gameCanvas');
 export const ctx = canvas.getContext('2d');
 const scoreDisplay = document.getElementById('score');
 const gameOverScreen = document.getElementById('gameOver');
+const mainMenuScreen = document.getElementById('mainMenu');
 const finalScoreDisplay = document.getElementById('finalScore');
 const restartButton = document.getElementById('restartButton');
+const startButton = document.getElementById('startButton');
 
 // Initialisation du jeu
 let snake = new Snake(SquareSize);
@@ -20,6 +22,7 @@ let food = new Food(SquareSize);
 let score = 0;
 let gameLoop;
 let isPaused = false;
+let isGameRunning = false;
 
 // Configuration du canvas
 canvas.width = GameSize;
@@ -38,6 +41,8 @@ const keyDirections = {
 };
 
 document.addEventListener('keydown', (event) => {
+    if (!isGameRunning) return;
+
     const direction = keyDirections[event.key.toLowerCase()];
     if (direction) {
         event.preventDefault();
@@ -50,6 +55,7 @@ document.addEventListener('keydown', (event) => {
 // Gestion du jeu
 function gameOver() {
     clearInterval(gameLoop);
+    isGameRunning = false;
     finalScoreDisplay.textContent = score;
     gameOverScreen.classList.remove('hidden');
 }
@@ -122,9 +128,21 @@ function drawGrid() {
 
 function startGame() {
     if (gameLoop) clearInterval(gameLoop);
+    isGameRunning = true;
+    mainMenuScreen.classList.add('hidden'); // Cacher le menu
     gameLoop = setInterval(update, GameSpeed);
 }
 
-// Démarrer le jeu
+// Initial display (render grid once so it's not empty)
+drawGrid();
+
+// Event Listeners
+startButton.addEventListener('click', () => {
+    // Réinitialiser l'état si besoin
+    snake.reset();
+    score = 0;
+    scoreDisplay.textContent = score;
+    startGame();
+});
 restartButton.addEventListener('click', restart);
-startGame();
+// startGame(); // Supprimé pour ne pas lancer le jeu automatiquement
