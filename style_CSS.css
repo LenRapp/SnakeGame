@@ -13,6 +13,63 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.main-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.info-panel {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    min-width: 200px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.info-panel h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.info-section {
+    margin-bottom: 25px;
+}
+
+.info-section h4 {
+    font-size: 14px;
+    color: #bdc3c7;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.controls-list {
+    list-style: none;
+    font-size: 14px;
+}
+
+.controls-list li {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.controls-list span {
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+.small-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px !important;
+    margin-top: 5px;
+}
+
 .game-container {
     position: relative;
 }

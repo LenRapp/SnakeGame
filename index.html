@@ -9,40 +9,59 @@
     <link rel="stylesheet" href="style_CSS.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="score-display">
-            Score: <span id="score">0</span>
+    <div class="main-layout">
+        <div class="game-container">
+            <div class="score-display">
+                Score: <span id="score">0</span>
+            </div>
+            <canvas id="gameCanvas"></canvas>
+            <div id="mainMenu" class="game-menu">
+                <h1>SNAKE V2</h1>
+                
+                <div class="theme-selector-container">
+                    <label for="themeSelect">Thème :</label>
+                    <select id="themeSelect">
+                        <option value="classic">Classique</option>
+                        <option value="retro">GameBoy</option>
+                        <option value="neon">Neon</option>
+                    </select>
+                </div>
+
+                <p class="controls-info">Utilisez les flèches pour bouger</p>
+                <button id="startButton">JOUER</button>
+            </div>
+            <div id="gameOver" class="game-over hidden">
+                <h2>Game Over!</h2>
+                <p>Score final: <span id="finalScore">0</span></p>
+                
+                <div class="theme-selector-container">
+                    <label for="gameOverThemeSelect">Thème :</label>
+                    <select id="gameOverThemeSelect">
+                        <option value="classic">Classique</option>
+                        <option value="retro">GameBoy</option>
+                        <option value="neon">Neon</option>
+                    </select>
+                </div>
+
+                <button id="restartButton">Rejouer</button>
+            </div>
         </div>
-        <canvas id="gameCanvas"></canvas>
-        <div id="mainMenu" class="game-menu">
-            <h1>SNAKE V2</h1>
+
+        <div class="info-panel">
+            <h3>INFOS</h3>
             
-            <div class="theme-selector-container">
-                <label for="themeSelect">Thème :</label>
-                <select id="themeSelect">
-                    <option value="classic">Classique</option>
-                    <option value="retro">GameBoy</option>
-                    <option value="neon">Neon</option>
-                </select>
+            <div class="info-section">
+                <h4>COMMANDES</h4>
+                <ul class="controls-list">
+                    <li><span>↑ ↓ ← →</span> : Bouger</li>
+                    <li><span>ESPACE</span> : Pause</li>
+                </ul>
             </div>
 
-            <p class="controls-info">Utilisez les flèches pour bouger</p>
-            <button id="startButton">JOUER</button>
-        </div>
-        <div id="gameOver" class="game-over hidden">
-            <h2>Game Over!</h2>
-            <p>Score final: <span id="finalScore">0</span></p>
-            
-            <div class="theme-selector-container">
-                <label for="gameOverThemeSelect">Thème :</label>
-                <select id="gameOverThemeSelect">
-                    <option value="classic">Classique</option>
-                    <option value="retro">GameBoy</option>
-                    <option value="neon">Neon</option>
-                </select>
+            <div class="info-section">
+                <h4>OPTIONS</h4>
+                <button id="backToMenuButton" class="small-btn">MENU PRINCIPAL</button>
             </div>
-
-            <button id="restartButton">Rejouer</button>
         </div>
     </div>
     <script type="module" src="script.js"></script>

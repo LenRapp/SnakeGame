@@ -18,6 +18,7 @@ const restartButton = document.getElementById('restartButton');
 const startButton = document.getElementById('startButton');
 const themeSelect = document.getElementById('themeSelect');
 const gameOverThemeSelect = document.getElementById('gameOverThemeSelect');
+const backToMenuButton = document.getElementById('backToMenuButton');
 
 // Initialisation du jeu
 let snake = new Snake(SquareSize);
@@ -38,21 +39,41 @@ function applyTheme(themeName) {
     document.body.style.background = currentTheme.background;
     canvas.style.backgroundColor = currentTheme.canvasBackground;
     canvas.style.borderColor = currentTheme.grid;
-    scoreDisplay.style.color = currentTheme.textColor;
+    
+    const scoreDisplayContainer = document.querySelector('.score-display');
+    if (currentTheme.isRetro) {
+        scoreDisplayContainer.style.color = currentTheme.canvasBackground; // Le jaune/vert clair de l'écran
+        scoreDisplayContainer.style.textShadow = "none";
+    } else {
+        scoreDisplayContainer.style.color = "white";
+        scoreDisplayContainer.style.textShadow = "2px 2px 4px rgba(0, 0, 0, 0.5)";
+    }
     
     // Appliquer la police Pixel si c'est le mode rétro
     const gameContainer = document.querySelector('.game-container');
+    const infoPanel = document.querySelector('.info-panel');
+    const mainLayout = document.querySelector('.main-layout');
+
     if (currentTheme.isRetro) {
-        gameContainer.style.fontFamily = "'Press Start 2P', cursive";
-        gameContainer.style.fontSize = "12px"; // Réduire un peu car cette police est large
+        mainLayout.style.fontFamily = "'Press Start 2P', cursive";
+        mainLayout.style.fontSize = "12px";
     } else {
-        gameContainer.style.fontFamily = "Arial, sans-serif";
-        gameContainer.style.fontSize = "inherit";
+        mainLayout.style.fontFamily = "Arial, sans-serif";
+        mainLayout.style.fontSize = "inherit";
     }
 
     // Synchroniser les sélecteurs
     themeSelect.value = themeName;
     gameOverThemeSelect.value = themeName;
+
+    // Style du panneau d'infos
+    infoPanel.style.borderColor = currentTheme.grid;
+    infoPanel.style.boxShadow = `0 0 15px ${currentTheme.grid}40`;
+    infoPanel.querySelector('h3').style.borderColor = currentTheme.grid;
+    infoPanel.querySelector('h3').style.color = currentTheme.grid;
+    
+    const controlKeys = infoPanel.querySelectorAll('.controls-list span');
+    controlKeys.forEach(span => span.style.color = currentTheme.grid);
 
     // Mettre à jour l'interface des menus (Principal et Game Over)
     const menus = [mainMenuScreen, gameOverScreen];
@@ -71,8 +92,17 @@ function applyTheme(themeName) {
     
     const buttons = document.querySelectorAll('button');
     buttons.forEach(btn => {
-        btn.style.background = currentTheme.grid;
-        btn.style.boxShadow = `0 0 20px ${currentTheme.grid}40`;
+        btn.style.background = currentTheme.buttonBackground;
+        btn.style.color = currentTheme.buttonText;
+        btn.style.boxShadow = `0 0 20px ${currentTheme.buttonBackground}40`;
+        
+        if (currentTheme.isRetro) {
+            btn.style.border = `4px solid ${currentTheme.textColor}`;
+            btn.style.borderRadius = "0px"; // Style bien carré pour GameBoy
+        } else {
+            btn.style.border = "none";
+            btn.style.borderRadius = btn.id === 'backToMenuButton' ? "5px" : "50px";
+        }
     });
     
     // Style spécifique pour les inputs select
@@ -113,13 +143,15 @@ const keyDirections = {
 };
 
 document.addEventListener('keydown', (event) => {
+    // Si le jeu n'est pas lancé, on ignore les touches de direction
     if (!isGameRunning) return;
 
     const direction = keyDirections[event.key.toLowerCase()];
     if (direction) {
-        event.preventDefault();
+        event.preventDefault(); // Empêche le scrolling de la page
         snake.setDirection(direction);
     } else if (event.key === ' ') {
+        event.preventDefault(); // Empêche le scroll avec espace
         togglePause();
     }
 });
@@ -130,6 +162,24 @@ function gameOver() {
     isGameRunning = false;
     finalScoreDisplay.textContent = score;
     gameOverScreen.classList.remove('hidden');
+}
+
+function stopGame() {
+    clearInterval(gameLoop);
+    isGameRunning = false;
+    isPaused = false;
+    snake.reset();
+    score = 0;
+    scoreDisplay.textContent = score;
+    
+    // Cacher l'écran de game over s'il est là
+    gameOverScreen.classList.add('hidden');
+    // Afficher le menu principal
+    mainMenuScreen.classList.remove('hidden');
+    
+    // Redessiner une grille vide propre
+    ctx.clearRect(0, 0, GameSize, GameSize);
+    drawGrid();
 }
 
 function restart() {
@@ -145,10 +195,16 @@ function togglePause() {
     isPaused = !isPaused;
     if (isPaused) {
         clearInterval(gameLoop);
+        // Afficher "PAUSE" sur le canvas (optionnel mais sympa)
+        ctx.fillStyle = currentTheme.textColor;
+        ctx.font = currentTheme.isRetro ? "30px 'Press Start 2P'" : "40px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("PAUSE", GameSize/2, GameSize/2);
     } else {
         startGame();
     }
 }
+
 
 function update() {
     if (isPaused) return;
@@ -218,5 +274,7 @@ startButton.addEventListener('click', () => {
     scoreDisplay.textContent = score;
     startGame();
 });
+// Démarrer le jeu
 restartButton.addEventListener('click', restart);
+backToMenuButton.addEventListener('click', stopGame);
 // startGame(); // Supprimé pour ne pas lancer le jeu automatiquement
