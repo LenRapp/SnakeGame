@@ -1,5 +1,6 @@
 import {Snake} from './Classes/Snake.js';
 import { Food } from './Classes/Food.js';
+import { Themes } from './Classes/Themes.js';
 
 // Configuration du jeu
 export const GameSize = 600;
@@ -15,6 +16,8 @@ const mainMenuScreen = document.getElementById('mainMenu');
 const finalScoreDisplay = document.getElementById('finalScore');
 const restartButton = document.getElementById('restartButton');
 const startButton = document.getElementById('startButton');
+const themeSelect = document.getElementById('themeSelect');
+const gameOverThemeSelect = document.getElementById('gameOverThemeSelect');
 
 // Initialisation du jeu
 let snake = new Snake(SquareSize);
@@ -23,10 +26,79 @@ let score = 0;
 let gameLoop;
 let isPaused = false;
 let isGameRunning = false;
+let currentTheme = Themes.classic;
 
 // Configuration du canvas
 canvas.width = GameSize;
 canvas.height = GameSize;
+
+// Gestion des thèmes
+function applyTheme(themeName) {
+    currentTheme = Themes[themeName];
+    document.body.style.background = currentTheme.background;
+    canvas.style.backgroundColor = currentTheme.canvasBackground;
+    canvas.style.borderColor = currentTheme.grid;
+    scoreDisplay.style.color = currentTheme.textColor;
+    
+    // Appliquer la police Pixel si c'est le mode rétro
+    const gameContainer = document.querySelector('.game-container');
+    if (currentTheme.isRetro) {
+        gameContainer.style.fontFamily = "'Press Start 2P', cursive";
+        gameContainer.style.fontSize = "12px"; // Réduire un peu car cette police est large
+    } else {
+        gameContainer.style.fontFamily = "Arial, sans-serif";
+        gameContainer.style.fontSize = "inherit";
+    }
+
+    // Synchroniser les sélecteurs
+    themeSelect.value = themeName;
+    gameOverThemeSelect.value = themeName;
+
+    // Mettre à jour l'interface des menus (Principal et Game Over)
+    const menus = [mainMenuScreen, gameOverScreen];
+    
+    menus.forEach(menu => {
+        const title = menu.querySelector('h1, h2');
+        if (title) {
+            title.style.color = currentTheme.grid; // Utiliser la couleur de la grille comme couleur principale
+            title.style.textShadow = `0 0 10px ${currentTheme.grid}80`; 
+        }
+        
+        // Mise à jour des textes d'information
+        const infos = menu.querySelectorAll('p, label');
+        infos.forEach(info => info.style.color = currentTheme.textColor);
+    });
+    
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        btn.style.background = currentTheme.grid;
+        btn.style.boxShadow = `0 0 20px ${currentTheme.grid}40`;
+    });
+    
+    // Style spécifique pour les inputs select
+    const selects = document.querySelectorAll('select');
+    selects.forEach(sel => {
+        sel.style.borderColor = currentTheme.grid;
+    });
+
+    if (!isGameRunning) {
+        // Redessiner pour voir l'aperçu si le jeu ne tourne pas
+        ctx.clearRect(0, 0, GameSize, GameSize);
+        drawGrid();
+        if (snake && !snake.isDead) snake.draw(currentTheme); // Redessiner le serpent si vivant (menu principal)
+    }
+}
+
+themeSelect.addEventListener('change', (e) => {
+    applyTheme(e.target.value);
+});
+
+gameOverThemeSelect.addEventListener('change', (e) => {
+    applyTheme(e.target.value);
+});
+
+// Appliquer le thème par défaut au démarrage
+applyTheme('classic');
 
 // Gestion des touches
 const keyDirections = {
@@ -89,7 +161,7 @@ function update() {
 
     // Mettre à jour et dessiner le serpent
     snake.move();
-    snake.draw();
+    snake.draw(currentTheme);
 
     // Vérifier les collisions avec la nourriture
     const head = snake.blocks[0];
@@ -101,7 +173,7 @@ function update() {
     }
 
     // Dessiner la nourriture
-    food.draw();
+    food.draw(currentTheme);
 
     // Vérifier si le jeu est terminé
     if (snake.isDead) {
@@ -110,8 +182,9 @@ function update() {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = '#2E7D32';
+    ctx.strokeStyle = currentTheme.grid;
     ctx.lineWidth = 0.5;
+    ctx.globalAlpha = 0.3; // Transparence de la grille
 
     for (let i = 0; i <= GameSize; i += SquareSize) {
         ctx.beginPath();
@@ -124,6 +197,7 @@ function drawGrid() {
         ctx.lineTo(GameSize, i);
         ctx.stroke();
     }
+    ctx.globalAlpha = 1.0; // Reset alpha
 }
 
 function startGame() {

@@ -59,6 +59,31 @@ body {
     text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
 }
 
+.theme-selector-container {
+    margin-bottom: 20px;
+}
+
+.theme-selector-container label {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #ecf0f1;
+}
+
+#themeSelect {
+    padding: 8px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid #2ecc71;
+    background: #34495e;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+#themeSelect:hover {
+    background: #2c3e50;
+}
+
 .controls-info {
     margin-bottom: 30px;
     color: #bdc3c7;

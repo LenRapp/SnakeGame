@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
     <link rel="icon" href="data:,">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style_CSS.css">
 </head>
 <body>
@@ -15,12 +16,32 @@
         <canvas id="gameCanvas"></canvas>
         <div id="mainMenu" class="game-menu">
             <h1>SNAKE V2</h1>
+            
+            <div class="theme-selector-container">
+                <label for="themeSelect">Thème :</label>
+                <select id="themeSelect">
+                    <option value="classic">Classique</option>
+                    <option value="retro">GameBoy</option>
+                    <option value="neon">Neon</option>
+                </select>
+            </div>
+
             <p class="controls-info">Utilisez les flèches pour bouger</p>
             <button id="startButton">JOUER</button>
         </div>
         <div id="gameOver" class="game-over hidden">
             <h2>Game Over!</h2>
             <p>Score final: <span id="finalScore">0</span></p>
+            
+            <div class="theme-selector-container">
+                <label for="gameOverThemeSelect">Thème :</label>
+                <select id="gameOverThemeSelect">
+                    <option value="classic">Classique</option>
+                    <option value="retro">GameBoy</option>
+                    <option value="neon">Neon</option>
+                </select>
+            </div>
+
             <button id="restartButton">Rejouer</button>
         </div>
     </div>

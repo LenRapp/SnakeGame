@@ -59,9 +59,9 @@ export class Snake {
         return this.blocks.some(b => b.x === block.x && b.y === block.y);
     }
 
-    draw() {
+    draw(theme) {
         this.blocks.forEach((block, index) => {
-            block.draw(index === 0);
+            block.draw(theme, index === 0);
         });
     }
 
